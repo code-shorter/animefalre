@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="/images/20240402_165332.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/admin-mb.css">
+</head>
+<body>
+    <main class="">
+        <div class="main-container">
+            <section class="section sm:border-b-2 sm:border-zinc-400" id="sec_1">
+                <div class="header w-full h-10 sm:h-14 bg-white drop-shadow-lg flex items-center">
+                    <p class="logo-text text-[20px] sm:text-[30px] ml-4"><span class=" font-semibold">Anime <span class="text-red-500 font-semibold">Flare</span></span><span class="text-[12px] sm:text-[16px] text-zinc-500 ml-2">Admin Panel</span></p>
+                </div>
+                <div class="flex">
+                    <div class="w-full ">
+                        <div class="ad-total-upload text-[17px] sm:text-[24px] font-semibold mt-2 sm:mt-4 ml-4">Total Donghua upload - <span id="ad-total-upload-span"><%= animeData.length %></span></div>
+                        <div class="ad-total-upload text-[17px] sm:text-[24px] font-semibold mt-2 sm:mt-4 ml-4">Total Episode upload - <span id="ad-total-upload-span"><%= episodeData.length %></span></div>
+                        <div class="ad-rectent-up-container px-4 py-2 sm:px-4 sm:py-4">
+                            <p class="text-[16px] sm:text-[20px]">Recent Upload</p>
+                            <div class="ad-recent-up-ep mt-2">
+                                <div class="recent-eps-container">
+                                    <div class="ep-post-cover">
+                                      <% recentEpisode.forEach(function(episode) { %>
+                                        <a href="/anime/watch/<%= episode.animeId %>/<%= episode.season %>/<%= episode.episodeId %>" target="_blank" rel="noopener noreferrer">
+                                          <div class="ep-post row-ep-post">
+                                            <img class="poster-img2" src="/images/thumbnails/<%= episode.thumbnail %>" alt="<%= episode.animeId %> ep<%= episode.episodeNo %>">
+                                            <p class="title"><%= episode.episodeTitle %></p>
+                                          </div>
+                                        </a>
+                                      <% }); %>
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="ad-recent-anime-container py-1 sm:py-2">
+                            <p class="text-[16px] sm:text-[20px]">Recent Donghua</p>
+                            <div class="new-add-container mt-2">
+                                <div class="poster-cover">
+                                  <% recentAnime.forEach(function(anime) { %>
+                                    <a href="/anime/detail/<%= anime.animeId %>/<%= 'S' + anime.season.length %>" target="_blank" rel="noopener noreferrer">
+                                      <div class="post row-post">
+                                        <img class="poster-img" src="/images/posters/<%= anime.poster %>">
+                                        <p class="title"><%= anime.name %></p>
+                                      </div>
+                                    </a>
+                                    <% }); %>                  
+                                </div>
+                              </div>
+                        </div>    
+                    </div>
+                    <p class="px-4 py-1">Update Banner</p>
+                    <form action="/update-banner" method="POST" enctype="multipart/form-data" class="px-4 py-2 w-full sm:w-[550px] h-[170px] sm:h-[161px] flex gap-4 relative">
+                      <div class="flex flex-col gap-2">
+                          <input type="file" class="banner-inp bg-zinc-100 rounded-[8px] p-1 sm:p-2" name="bannerImg">
+                          <input type="text" class="banner-inp bg-zinc-100 rounded-[8px] p-1 sm:p-2" name="animeName" placeholder="Enter anime name">
+                          <input type="text" class="banner-inp bg-zinc-100 rounded-[8px] p-1 sm:p-2" name="link" placeholder="anime/S1">
+                      </div>
+                      <div class="banner-updata-btn absolute bottom-2  sm:right-0">
+                          <button type="submit" class="bg-blue-400 rounded-[8px] sm:mt-2 sm:ml-2 w-32 py-1 sm:py-2 font-semibold text-white">Update Image</button>
+                      </div>
+                  </form>                  
+                    </div>
+                    <div id="email-section" class=" w-full border-2 border-zinc-500 h-80 flex items-center flex-col p-3">
+                      <p class="p-2 font-bold">New User Email</p>
+                      <div class="bg-zinc-100 p-4 rounded-[15px]">
+                          <p class="font-semibold text-[18px] py-2"><%= recentUsers.email %></p>
+                      </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Upload episode section -->
+            <section class="section border-2 border-b-zinc-400 p-4" id="sec_2">
+                <p class="episode-heading text-[20px] sm:text-[30px] font-bold">Upload Episode</p>
+                <div class="upper-flex-container sm:flex w-full">
+                  <div class="p-2 w-full">
+                    <form action="/upload-episode" id="ep-form" class="flex flex-col gap-1 sm:gap-2 w-full sm:w-96 " method="post" enctype="multipart/form-data">
+                      <label for="animeId">Select Donghua</label>
+                      <select name="animeId" class="bg-zinc-100 rounded-[8px] p-1 sm:p-2" id="selected-anime">
+                        <option value="" disabled selected>Select Donghua</option>
+                        <% animeData.forEach(function(anime) { %>
+                        <option value="<%= anime.animeId %>"><%= anime.name %></option>
+                        <% }); %>
+                      </select>
+                      <label for="season_ep-no">Season, Episode no. and Id</label>
+                      <div class="">
+                        <input type="text" name="season" placeholder="1" class="season-inp bg-zinc-100 rounded-[8px] p-1 sm:p-2 ">
+                        <input type="number" placeholder="1" class="epNo-inp bg-zinc-100 rounded-[8px] p-1 sm:p-2 " name="episodeNo" id="inp-ep">
+                      </div>
+                        <label for="thumbnail">Thumbnail</label>
+                        <input type="file" name="thumbnail" id="inp-thumbnail" class="bg-zinc-100 rounded-[8px] p-1 sm:p-2" onchange="handleFiles(event)">
+                        <p class="mt-1 font-semibold text-[17px] sm:text-[22px]">Video Link</p>
+                        <label for="server1">Server 1</label>
+                        <input type="url" placeholder="https://www.youtube.com/embed/video-link" name="server1" oninput="prePlay()" id="inp-server1-link" class="bg-zinc-100 rounded-[8px] p-1 sm:p-2" autocomplete="off">
+                        <label for="server2">Server 2</label>
+                        <input type="url" placeholder="https://www.dailymotion.com/embed/video-link" name="server2" id="inp-server2-link" class="bg-zinc-100 rounded-[8px] p-1 sm:p-2" autocomplete="off">
+                        <label for="server3" class="server3">Server 3</label>
+                        <input type="url" name="server3" id="inp-server3-link" class="server3 bg-zinc-100 rounded-[8px] p-2">
+                        <button type="submit" class="bg-blue-400 rounded-[8px] mt-[150px] sm:mt-2 ml-4 sm:ml-2 w-32 py-1 sm:py-2 font-semibold text-white">Publish</button>
+                        <button class="border-2 bg-white border-blue-400 rounded-[8px] mt-[-35px] sm:mt-[-50px] ml-[170px] sm:ml-[150px] w-32 py-1 sm:py-2 font-semibold text-blue-400" onclick="alert('ok')">Save</button>
+  
+                    </form>
+                  </div>
+                  <div class="ep-pre-container w-full">
+                    <div class="pre-player-cover bg-zinc-100 w-[fit-content] h-[fit-content]">
+                      <iframe class="w-[560px] h-[315px]" src="" id="pre-player" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                    <div class="">
+                      <!-- <button class="border-2 bg-white border-blue-400 rounded-[8px] mt-2 ml-[470px] w-32 py-2 font-semibold text-blue-400">Save</button>
+                      <button class="bg-blue-400 rounded-[8px] mt-2 ml-2 w-32 py-2 font-semibold text-white">Publish</button> -->
+                    </div>
+                  </div>
+                </div>
+            </section>
+            <!-- Upload Donghua section -->
+            <section class="section border-2 border-b-zinc-400 p-4" id="sec_3">
+              <p class="donghua-heading text-[20px] sm:text-[30px] font-bold">Upload Donghua</p>
+              <div class="flex w-full">
+                <div class="p-0 sm:p-4 w-full">
+                  <form action="/upload-donghua" id="donghua-form" class="flex flex-col gap-2 w-full sm:w-96" method="post" enctype="multipart/form-data">
+                      <label for="name">Donghua Name</label>
+                      <input type="text" placeholder="Donghua name" name="name" id="inp-donghua-name" class="bg-zinc-100 rounded-[8px] p-1 sm:p-2">
+                      <label for="description">Description</label>
+                      <textarea name="description" placeholder="About Donghua..." id="inp-donghua-description" class="bg-zinc-100 rounded-[8px] p-1 sm:p-2" cols="5" rows="3"></textarea>
+                      <label for="tags">Donghua tags</label>
+                      <input type="text" placeholder="action, romance, cultivation" name="tags" id="inp-donghua-tags" class="bg-zinc-100 rounded-[8px] p-1 sm:p-2">
+                      <label for="animeId">Donghua Id</label>
+                      <input type="text" placeholder="donghua-id" name="animeId" id="inp-donghua-id" class="bg-zinc-100 rounded-[8px] p-1 sm:p-2">
+                      <label for="poster-img">Poster</label>
+                      <input type="file" name="posterImg" id="inp-poster" oninput="prePost()" class="bg-zinc-100 rounded-[8px] p-1 sm:p-2">
+                      <p class="mt-1 sm:mt-4 font-semibold text-[16px] sm:text-[22px]">Add in</p>
+                      <div class="flex">
+                        <span class=" flex items-center gap-1 mr-4">
+                          <input type="checkbox" value="banner" name="section" id="inp-add-banner"><span>Banner</span>
+                        </span>
+                        <span class=" flex items-center gap-1 mr-4">
+                          <input type="checkbox" value="popular" name="section" id="inp-add-banner"><span>Popular</span>
+                        </span>
+                        <span class=" flex items-center gap-1 mr-4">
+                          <input type="checkbox" value="new" name="section" id="inp-add-banner"><span>New</span>
+                        </span>
+                        <span class=" flex items-center gap-1 mr-4">
+                          <input type="checkbox" value="others" name="section" id="inp-add-banner" checked><span>Others</span>
+                        </span>  
+                      </div>
+                      <button type="submit" class="bg-blue-400 rounded-[8px] mt-1 sm:mt-3 ml-6 sm:ml-2 w-32 py-2 font-semibold text-white">Publish</button>
+                      <button class="border-2 bg-white border-blue-400 rounded-[8px] mt-[-50px] ml-[170px] sm:ml-[150px] w-32 py-2 font-semibold text-blue-400">Save</button>
+                  </form>
+                </div>
+                <div class="w-full">
+                  <div class="">
+                    <!-- <img src="" id="thumbnail-container" class=" mt-8 w-[300px] h-[480px] bg-zinc-100 mr-2"> -->
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!-- Update and Delete -->
+            <section class="section border-2 border-b-zinc-400 p-4" id="sec_4">
+              <p class="text-[20px] sm:text-[30px] font-bold">Update and Delete</p>
+              <div class="flex w-full">
+                <div class="UD1 p-1 sm:p-4 w-full">
+                  <form action="/create-season" id="create-season-form" class="flex flex-col gap-2 w-full sm:w-96" method="post" enctype="multipart/form-data">
+                    <p class="mt-4 font-semibold text-[22px]">Add Seasons</p>
+                    <label for="animeId">Select Donghua</label>
+                    <select name="animeId" class="bg-zinc-100 rounded-[8px] p-2" id="selected-anime">
+                      <option value="" disabled selected>Select Donghua</option>
+                      <% animeData.forEach(function(anime) { %>
+                      <option value="<%= anime.animeId %>"><%= anime.name %></option>
+                      <% }); %>
+                    </select>
+                    <label for="seasonImg">Upload season banner</label>
+                    <input type="file" name="seasonImg" class="bg-zinc-100 rounded-[8px] p-2" id="">
+                    <button type="submit" class="bg-zinc-100 rounded-[8px] p-2">Add new season</button>
+                  </form>
+                   <!-- Delete donghua -->
+                  <form action="/delete-season" id="donghua-form" class="flex flex-col gap-2 w-full sm:w-96" method="post">
+                    <p class="mt-4 font-semibold text-[22px]">Delete Season</p>
+                    <label for="animeId">Select Donghua</label>
+                    <select name="animeId" class="bg-zinc-100 rounded-[8px] p-2" id="selected-anime">
+                      <option value="" disabled selected>Select Donghua</option>
+                      <% animeData.forEach(function(anime) { %>
+                      <option value="<%= anime.animeId %>"><%= anime.name %></option>
+                      <% }); %>
+                    </select>
+                    <label for="seasonId">Season ID</label>
+                    <input type="text" name="seasonId" placeholder="S1" class="bg-zinc-100 rounded-[8px] p-2">
+                    <button type="submit" class="bg-zinc-100 rounded-[8px] p-2">Delete</button>
+                  </form>
+                      <!-- <button type="submit" class="bg-blue-400 rounded-[8px] mt-3 ml-2 w-32 py-2 font-semibold text-white">Publish</button>
+                      <button class="border-2 bg-white border-blue-400 rounded-[8px] mt-[-50px] ml-[150px] w-32 py-2 font-semibold text-blue-400">Save</button> -->
+                </div>
+                <div class="UD2 w-full">
+                  <div class="">
+                    <form action="/update-donghua" method="post" class="flex flex-col gap-2 w-96" enctype="multipart/form-data">
+                      <p class="mt-8 font-semibold text-[22px]">Update Donghua</p>
+                      <label for="animeId">Select Donghua</label>
+                      <select name="animeId" class="bg-zinc-100 rounded-[8px] p-2" id="selected-anime">
+                        <option value="" disabled selected>Select Donghua</option>
+                        <% animeData.forEach(function(anime) { %>
+                        <option value="<%= anime.animeId %>"><%= anime.name %></option>
+                        <% }); %>
+                      </select>
+                      <label for="posterImg">Upload Poster</label>
+                      <input type="file" name="posterImg" class="bg-zinc-100 rounded-[8px] p-2" id="">
+                      <label for="name">Donghua name</label>
+                      <input type="text" name="name" class="bg-zinc-100 rounded-[8px] p-2" id="">
+                      <label for="animeId">Donghua Id</label>
+                      <input type="text" name="newAnimeId" class="bg-zinc-100 rounded-[8px] p-2" id="">
+                      <label for="tags">Tags</label>
+                      <input type="text" name="tags" class="bg-zinc-100 rounded-[8px] px-2 pt-2 pb-1" id="">
+                      <p class="mt-1 font-semibold text-[17px]">Add in</p>
+                      <div class="flex">
+                        <span class=" flex item-center gap-1 mr-4">
+                          <input type="checkbox" value="banner" name="section" id="inp-add-banner"><span>Banner</span>
+                        </span>
+                        <span class=" flex item-center gap-1 mr-4">
+                          <input type="checkbox" value="popular" name="section" id="inp-add-banner"><span>Popular</span>
+                        </span>
+                        <span class=" flex item-center gap-1 mr-4">
+                          <input type="checkbox" value="new" name="section" id="inp-add-banner"><span>New</span>
+                        </span>
+                        <span class=" flex item-center gap-1 mr-4">
+                          <input type="checkbox" value="others" name="section" id="inp-add-banner" checked><span>Others</span>
+                        </span>  
+                      </div>
+                      <button type="submit" class="bg-zinc-100 rounded-[8px] p-2">Update</button>
+                    </form>
+                  </div>
+                  <form action="/delete-donghua" class="p-1 w-96" method="post">
+                    <p class="py-1 font-semibold text-[16px]">Delete Donghua</p>
+                    <div class="flex gap-2">
+                      <select name="animeId" class="bg-zinc-100 rounded-[8px] w-full p-2" id="selected-anime">
+                        <option value="" disabled selected>Select Donghua</option>
+                        <% animeData.forEach(function(anime) { %>
+                        <option value="<%= anime.animeId %>"><%= anime.name %></option>
+                        <% }); %>
+                      </select>
+                      <button type="submit" class="bg-zinc-100 w-full rounded-[8px] p-2">Delete</button>
+                    </div>
+                  </form>
+                </div>
+                <div class="UD3 w-full">
+                  <div class="">
+                    <form action="/update-episode" method="post" class="flex flex-col gap-2 w-96" enctype="multipart/form-data">
+                      <p class="mt-8 font-semibold text-[22px]">Update Episode</p>
+                      <label for="animeId">Select Donghua</label>
+                      <select name="animeId" class="bg-zinc-100 rounded-[8px] p-2" id="selected-anime">
+                        <option value="" disabled selected>Select Donghua</option>
+                        <% animeData.forEach(function(anime) { %>
+                        <option value="<%= anime.animeId %>"><%= anime.name %></option>
+                        <% }); %>
+                      </select>
+                      <label for="posterImg">Upload Thumbnail</label>
+                      <input type="file" name="thumbnail" class="bg-zinc-100 rounded-[8px] p-2" id="">
+                      <label for="name">Episode Title</label>
+                      <input type="text" name="episodeTitle" class="bg-zinc-100 rounded-[8px] p-2" id="">
+                      <div class="flex gap-2">
+                        <input type="text" name="season" placeholder="season" class="bg-zinc-100 rounded-[8px] w-full p-2" id="">
+                        <input type="text" name="episodeNo" placeholder="1" class="bg-zinc-100 rounded-[8px] w-full p-2" id="">
+                        <input type="text" name="episodeId" placeholder="ep1" class="bg-zinc-100 rounded-[8px] w-full p-2" id="">
+                      </div>
+                      <label for="server">Server</label>
+                      <input type="text" name="server1" class="bg-zinc-100 rounded-[8px] p-2" id="">
+                      <input type="text" name="server2" class="bg-zinc-100 rounded-[8px] p-2" id="">
+                      <button type="submit" class="bg-zinc-100 rounded-[8px] p-2">Update</button>
+                    </form>
+                  </div>
+                  <form action="/delete-episode" class="p-1 w-96 flex flex-col gap-2" method="post">
+                    <p class="py-1 font-semibold text-[16px]">Delete Episode</p>
+                    <div class="flex gap-2">
+                    <input type="text" name="seasonId" placeholder="S1" class="bg-zinc-100 w-full rounded-[8px] p-2" id="">
+                      <input type="text" name="episodeId" placeholder="ep1" class="bg-zinc-100 w-full rounded-[8px] p-2" id="">
+                    </div>
+                    <button type="submit" class="bg-zinc-100 w-full rounded-[8px] p-2">Delete</button>
+                  </form>
+                </div>
+              </div>
+            </section>
+
+        </div>
+    </main>
+    <script>
+      const inpThumbnail = document.getElementById('inp-thumbnail');
+      const inpServer1 = document.getElementById('inp-server1-link');
+      var preThumbnail = document.getElementById('thumbnail-container');
+      var prePlayer = document.getElementById('pre-player');
+
+      function selectValue() {
+        var consDisplay = document.getElementById('selected-anime').value;
+        console.log(consDisplay);
+      }
+
+      function preThumb() {
+        preThumbnail.src = inpThumbnail.value;
+      }
+      function prePlay() {
+        prePlayer.src = inpServer1.value;
+      }
+
+      function selectedAnime() {
+        document.getElementById('selected-anime')
+      }
+
+// Frontend JavaScript code to fetch seasons for a specific anime
+// Assuming you're using fetch API for making HTTP requests
+
+// Function to fetch seasons for a specific anime
+async function fetchSeasons(animeId) {
+    try {
+        const response = await fetch(`/api/anime/${animeId}/seasons`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch seasons');
+        }
+        const data = await response.json();
+        return data.season; // Assuming the response contains a property 'seasons' which is an array of seasons
+    } catch (error) {
+        console.error('Error fetching seasons:', error);
+        return null;
+    }
+}
+
+// Usage example: When an anime is selected from the dropdown
+function ddd() {
+  async (event) => {
+    const selectedAnimeId = event.target.value;
+    const seasons = await fetchSeasons(selectedAnimeId);
+    if (seasons) {
+        // Populate the seasons dropdown with the fetched seasons
+        const seasonDropdown = document.getElementById('selt-season');
+        seasonDropdown.innerHTML = '<option value="" disabled selected>Select a Season</option>';
+        seasons.forEach(season => {
+            seasonDropdown.innerHTML += `<option value="${season.seasonId}">${season.name}</option>`;
+        });
+    }
+};
+}
+
+
+    </script>
+</body>
+</html>

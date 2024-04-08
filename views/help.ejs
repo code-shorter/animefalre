@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="icon" type="image/png" href="/images/20240402_165332.png">
+  <title>Anime Flare</title>
+</head>
+<body id="body">
+    <% include components/header.ejs %>
+    <main class="relative">
+        <% include components/nav.ejs %>
+        <div class="flex flex-col w-full bg-zinc-800 text-white p-4 overflow-scroll h-screen text-center relative">
+            <div class="text-[12px] mt-[-52px] shadow-2xl shadow-black font-semibold bg-zinc-600 p-2 rounded-[10px] absolute right-4 w-fit top-4" id="popup-box">Your request has been sent</div>
+            <form action="/feedback" method="post" class="w-full relative h-[440px]" id="feedback-form">
+                <p class="text-[22px] font-semibold text-start">FeedBack</p>
+                <div class="flex gap-3 flex-col items-start mb-2 mt-8">
+                    <p class="">username: @<%= user.username %></p>
+                <input type="hidden" name="username" value="@<%= user.username %>">
+                <p class="">Email: <input type="email" name="email" value="<%= user.email %>" class="border-b-white border-b-1 outline-0 bg-transparent"></p>
+                <div class="flex gap-1 items-center">
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" class="border-2 w-full border-black rounded-[8px] bg-zinc-700 outline-0 p-1" required>
+                </div>
+                <p class=""><label for="message">Message:</label></p>
+                </div>
+                <textarea name="message" placeholder="Write your request or feedback..." class="border-2 w-full h-44 overflow-scroll border-black rounded-[8px] bg-zinc-700 outline-0 p-2" required></textarea>
+                <button type="submit" onclick="sended()" class="bg-blue-600 absolute bottom-0 right-0 text-white rounded-[25px] px-4 py-1" >Submit</button>
+            </form>
+        </div>
+    </main>
+    <% include components/footer.ejs %>
+    <script src="/javascripts/script.js"></script>
+    <script>
+        let translateYValue = 0;
+let translationCount = 0;
+const element = document.getElementById('popup-box');
+
+function sended() {
+  // Increment translateYValue by -52 pixels
+  translateYValue += 52;
+  translationCount++;
+
+  // Apply translateY transformation
+  element.style.transform = `translateY(${translateYValue}px)`;
+
+  // Check if three translations have been done
+  if (translationCount === 6) {
+    // Reset translateYValue and translationCount
+    translateYValue = 0;
+    translationCount = 0;
+
+    // Restore original position
+    element.style.transform = 'none'; // Reset transform property
+  }
+}
+
+    </script>
+</body>
+</html>

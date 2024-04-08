@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="icon" type="image/png" href="/images/20240402_165332.png">
+    <title>Anime Flare - @<%= user.username %></title>
+</head>
+<body>        
+    <header>
+        <div class="header-container border-b-2 border-black gap-1 w-full bg-[#191919] text-white flex item-center drop-shadow-lg py-[10px] text-[18px] px-2">
+                <a href="/home" class="active:bg-zinc-700 duration-200 p-[2px] rounded-[8px]">
+                    <span class="material-symbols-outlined text-[17px]">
+                        arrow_back_ios_new
+                        </span> Back
+                </a>
+        </div>
+    </header>
+    <main>
+        <div class="main-container p-2 bg-zinc-800">
+            <form action="/account-update" method="post" enctype="multipart/form-data">
+                <div class="w-full mt-6 flex item-center justify-center">
+                    <div class="relative">
+                        <% if (user.userPic) { %>
+                            <img src="/images/profile-img/<%= user.userPic %>" alt="user Pic" class="w-32 h-32 rounded-full">
+                          <% } else { %>
+                            <img src="/images/user-icon.png" alt="Default Profile Image" class="w-32 h-32 rounded-full">
+                          <% } %>
+                    <span class="material-symbols-outlined absolute right-0 bottom-0 text-black bg-white p-1 rounded-full translate-x-[-6px] translate-y-[-6px] active:bg-zinc-400 duration-200" id="uploadButton">
+                        edit
+                        </span>
+                    </div>
+                </div>
+                <input type="file" oninput="form.submit()" name="profileImg" id="fileInput" style="display: none;">
+                <div class="w-full text-center gap-2 mt-4">
+                    <p class="text-zinc-400">Username</p>
+                    <p class="text-white text-[20px]">@<%= user.username %></p>
+                </div>
+                <div class="w-full text-center gap-2 mt-4">
+                    <p class="text-zinc-400">Full name</p>
+                    <p class="text-white text-[17px]"><%= user.fullname %></p>
+                </div>
+                <div class="w-full text-center gap-2 mt-4">
+                    <p class="text-zinc-400">Email</p>
+                    <p class=" text-white text-[17px]" id="emailInput"><%= user.email %></p>
+                </div>
+            </form>
+            <div class="w-full mt-8 justify-center flex gap-2">
+                <a href="/logout" class="bg-zinc-500 text-white p-2 rounded-[8px] active:bg-zinc-700 duration-200">Logout</a>
+                <button onclick="opn()" class="bg-red-500 text-white p-2 rounded-[8px] active:bg-red-800 duration-200">Delete account</button>
+            </div>
+            <div hidden id="popup" class="bg-zinc-500 rounded-[10px]  h-36 mt-4 w-full p-4 text-white">
+                Sure you want to delete Account😢.
+                <div class="w-full mt-4 justify-center flex gap-2">
+                    <a href="/delete-account" class="bg-red-500 w-full text-center text-white p-2 rounded-[8px] active:bg-red-800 duration-200">Yes</a>
+                    <button onclick="cls()" class="bg-blue-500 w-full text-center text-white p-2 rounded-[8px] active:bg-blue-700 duration-200">No</button>
+                </div>
+            </div>    
+        </div>
+    </main>
+    <script>
+        function opn() {
+            document.getElementById('popup').removeAttribute('hidden');
+        }
+        function cls() {
+            document.getElementById('popup').setAttribute('hidden', "");
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+          const uploadButton = document.getElementById('uploadButton');
+          const fileInput = document.getElementById('fileInput');
+      
+          uploadButton.addEventListener('click', function() {
+            fileInput.click(); // Trigger click event on file input
+          });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+  // Assuming you have a way to fetch the user's email dynamically, 
+  // replace the static example with the dynamic email retrieval code
+  const userEmail = getUserEmail(); 
+
+  // Replace the first four characters with asterisks
+  const maskedEmail = maskEmail(userEmail);
+
+  // Display the masked email
+  document.getElementById('emailInput').textContent = maskedEmail;
+});
+
+// Function to fetch the user's email dynamically (replace this with your own code)
+function getUserEmail() {
+  // Example: fetching user email from an input field with id 'emailInput'
+  return document.getElementById('emailInput').innerText;
+}
+
+// Function to mask the email
+function maskEmail(email) {
+  const atIndex = email.indexOf('@'); // Find the index of '@' symbol
+  const maskedPart = email.substring(0, 4).replace(/./g, '*'); // Replace the first 4 characters with '*'
+  const domainPart = email.substring(atIndex); // Get the domain part of the email
+  return maskedPart + domainPart; // Combine the masked part with the domain part
+}
+
+
+      </script>
+      
+</body>
+</html>

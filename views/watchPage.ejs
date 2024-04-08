@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore the exciting episodes of <%= animeData.name %> <%= seasonData.displayName %> on Anime Flare. Watch your favorite anime online with our streaming service.">
+  <link rel="canonical" href="https://www.animeflare.free.nf/anime/watch/<%= animeData.animeId %>/<%= seasonData.seasonId %>/<%= episodeData.episodeId %>">
+  <title><%= animeData.name %> - <%= seasonData.displayName %> Episode <%= episodeData.episodeNo %> | Anime Flare</title>
+  <link rel="icon" type="image/png" href="/images/20240402_165332.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body id="body" onscroll="navPosition()">
+    <% include components/header.ejs %>
+    <main class="relative">
+        <% include components/nav.ejs %>
+        <div class="flex flex-col w-full bg-zinc-800 text-white p-4 h-screen overflow-scroll">
+            <h1 class="ep-name text-white text-[20px] font-semibold mt-4 mb-3"><%= episodeData.episodeTitle %> <%= seasonData.seasonNo %></h1>
+            <div class="player-cover bg-zinc-700 w-full p-2">
+              <div class="player-container pb-1">
+                <iframe id="player" class="bg-black" src="<%= episodeData.server1 ? `${episodeData.server1}?autoplay=1` : '' %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <a href="/anime/watch/<%= animeData.animeId %>/<%= seasonData.seasonId %>/<%= 'ep' + ( episodeData.episodeNo - 1 ) %>" onclick="prev()" id="prev-ep" class="inline-flex bg-zinc-600 p-[2px] m-1 rounded-[5px] text-[14px] w-20 justify-center active:bg-zinc-800 duration-200">
+                  <span class="material-symbols-outlined">
+                    skip_previous
+                    </span>
+                    Prev
+                </a>
+                <a href="/anime/watch/<%= animeData.animeId %>/<%= seasonData.seasonId %>/<%= 'ep' + ( episodeData.episodeNo + 1 ) %>" onclick="next()" id="next-ep" class="inline-flex bg-zinc-600  p-[2px] mt-2 rounded-[5px] text-[14px] w-20 justify-center active:bg-zinc-800 duration-200">
+                  <span class="material-symbols-outlined">
+                    skip_next
+                    </span>
+                    Next
+                </a>                
+            </div>
+            <div class="server-container p-2 border-t-2  border-zinc-600">
+              <p class="text-[16px] mb-2">Server</p>
+              <div class="cover flex gap-4">
+                <div onclick="YTserver()" id="yt-btn" class=" bg-zinc-600 p-1.5 rounded-[5px] select-none">YouTube</div>
+                <div onclick="DMserver()" id="dm-btn" class=" bg-zinc-600 p-1.5 rounded-[5px] select-none">Dailymotion</div>
+              </div>
+            </div>
+            <h2 class="text-[16px] mt-4 mb-2">Seasons</h2>
+                <div class="season-container flex overflow-x-scroll overflow-y-hidden">
+                    <div class="season-cover flex gap-2" id="season-cover">
+                      <% animeData.season.forEach(function(season) { %>
+                        <a href="/anime/watch/<%= animeData.animeId %>/<%= season.seasonId %>/ep1">
+                            <div class="h-[60px] w-[120px] relative rounded-[10px] overflow-hidden">
+                                <img src="/images/season/<%= season.seasonImg %>" class="absolute left-0 right-0 top-0 bottom-0" height="60px" width="120px" alt="<%= animeData.name %> <%= seasonData.displayName %> Banner">
+                                <div class="season-box absolute">
+                                    <h3 class="season-num"><%= season.displayName %></h3>
+                                </div>
+                            </div>
+                        </a>
+                    <% }); %>
+                </div>
+                </div>
+                <h2 class="text-[16px] mt-4 mb-2">Episodes</h2>
+                <div class="episode-container bg-zinc-900 rounded-[10px] w-full min-h-36 max-h-72 overflow-y-scroll p-2">
+                  <% if (seasonData.episodes && seasonData.episodes.length > 0) { %>
+                    <% seasonData.episodes.forEach(function(episode) { %>
+                        <a href="/anime/watch/<%= animeData.animeId %>/<%= episode.season %>/<%= episode.episodeId %>">
+                            <div class="eps font-semibold bg-zinc-600 active:bg-zinc-800 duration-200"><%= episode.episodeNo %></div>
+                        </a>
+                    <% }); %>
+                <% } else { %>
+                    <p class="italic text-zinc-400 pb-2">Episodes are unavailable.</p>
+                <% } %>
+                </div>
+                <p class="text-[18px] mt-4 mb-2">Note :</p>
+                <h6 class="text-[15px] pb-2">Please note that we embed videos from Dailymotion and YouTube. We do not store or stream any anime or donghua content directly. Third-party services may have their privacy policies, and we encourage you to review them.</h6>
+                
+                <div class="">
+                  <p class="text-[18px] mt-4 mb-2">Related anime</p>
+                  <div class="new-add-container">
+                    <div class="poster-cover">
+                      <% relatedAnime.forEach(function(anime) { %>
+                        <a href="/anime/detail/<%= anime.animeId %>/<%= 'S' + anime.season.length %>">
+                          <div class="post row-post">
+                            <img class="poster-img" src="/images/posters/<%= anime.poster %>">
+                            <p class="title"><%= anime.name %></p>
+                          </div>
+                        </a>
+                        <% }); %>
+                    </div>
+                  </div>
+                </div>
+
+              <section id="comment-section">
+                <div>
+                  <p class="text-[18px] mt-4 mb-2">Comments</p>
+                  <form action="/comment" method="post" class="w-full relative h-24" id="comment-form">
+                    <input type="hidden" name="username" value="<%= user.username %>">
+                    <input type="hidden" name="userPic" value="<%= user.userPic %>">
+                    <input type="hidden" name="episodeId" value="<%= episodeData.episodeId %>">
+                    <textarea name="text" placeholder="Leave a comment!" class="border-2 w-full h-12 border-black rounded-[8px] bg-zinc-700 outline-0 p-2" rows="3"></textarea>
+                    <button type="submit" class="bg-blue-600 absolute bottom-0 right-0 text-white rounded-[25px] px-4 py-1">Submit</button>
+                  </form>
+                </div>                
+              </section>
+                <div class="w-full h-[2px] bg-zinc-700 my-2"></div>
+                    <% if (episodeData && episodeData.comments && episodeData.comments.length > 0) { %>
+                      <% episodeData.comments.forEach(function(comment) { %>
+                        <div class="">
+                          <p class="username text-zinc-400 flex gap-1 my-2">
+                            <span class="logo">
+                              <img src="/images/profile-img/<%= comment.userPic %>" class="w-6 h-6 rounded-full">
+                            </span>
+                            @<%= comment.username %> 
+                          </p>
+                          <p class="text"><%= comment.text %></p>
+                        </div>
+                        <div class="w-full h-[1px] bg-zinc-700 my-2"></div>
+                        <div class="pb-2"></div>
+                      <% }); %>
+                    <% } else { %>
+                      <p class=" italic text-zinc-400 pb-2">No comments available.</p>
+                    <% } %>                  
+
+        </div>
+    </main>
+    <% include components/footer.ejs %>
+    <script src="/javascripts/script.js"></script>
+    <script src="./script.js"></script>
+    <script>
+      
+      const prevEp = document.getElementById('prev-ep');
+      const nextEp = document.getElementById('next-ep');
+      
+const player = document.getElementById('player');
+var YTbtn = document.getElementById('yt-btn');
+var DMbtn = document.getElementById('dm-btn');
+
+// Function to set the player source based on the server URL
+function setPlayerSource(serverUrl) {
+  if (serverUrl) {
+    if (serverUrl.includes('youtube.com')) {
+      player.src = `${serverUrl}?autoplay=1`;
+    } else {
+      player.src = serverUrl;
+    }
+  }
+}
+
+// Initial setup based on episodeData
+setPlayerSource('<%= episodeData.server1 %>');
+
+// Function to handle YouTube server button click
+function YTserver(){
+  setPlayerSource('<%= episodeData.server1 %>');
+  YTbtn.style.background = 'rgb(39 39 42)';
+  DMbtn.style.background = 'rgb(82 82 91)';
+}
+
+// Function to handle Dailymotion server button click
+function DMserver(){
+  setPlayerSource('<%= episodeData.server2 %>');
+  DMbtn.style.background = 'rgb(39 39 42)';
+  YTbtn.style.background = 'rgb(82 82 91)';
+}
+
+
+
+// Wait for the document to fully load
+document.addEventListener("DOMContentLoaded", function() {
+  // Wait for 3 seconds before removing the URL fragment
+  setTimeout(function() {
+    // Remove the URL fragment
+    history.replaceState({}, document.title, window.location.pathname + window.location.search);
+  }, 3000); // 3000 milliseconds = 3 seconds
+});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+@media screen and (max-width: 425px) {
+    .poster-img2 {
+        height: 45px;
+        width: 85px;
+        border-radius: 6px;
+    }
+    .ep-post {
+        height: 70px;
+        width: 85px;
+    }
+    .poster-img {
+        height: 75px;
+        width: 55px;
+        border-radius: 6px;
+    }
+    .post {
+        height: 100px;
+        width: 55px;
+    }
+    .title {
+        font-size: 12px;
+    }
+    .poster-cover, .ep-post-cover {
+        gap: 8px;
+    }
+    .banner-inp {
+        width: 288px;
+    }
+    .season-inp, .epNo-inp {
+        width: 130px;
+    }
+    .server3 {
+        display: none;
+    }
+    .pre-player-cover {
+        display: flex;
+        align-items: center;
+        width: 213px;
+        height: 120px;
+        margin-left: 55px;
+    }
+    .ep-pre-container{
+        margin-top: -176px;
+    }
+    #pre-player {
+        width: 213px;
+        height: 120px;
+    }
+    .banner-updata-btn {
+        left: 18px;
+    }
+    #ep-form {
+        font-size: 14px;
+    }
+    /* .donghua-heading{
+        margin-top: 40px;
+    } */
+    /* .episode-heading {
+        margin-top: 10px;
+    } */
+    .UD2, .UD3 {
+        display: none;
+    }
+    #email-section {
+        display: none;
+    }
+  }
+  

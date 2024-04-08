@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="icon" type="image/png" href="/images/20240402_165332.png">
+  <title>Anime Flare</title>
+</head>
+<body id="body">
+    <% include components/header.ejs %>
+    <main class="relative">
+        <% include components/nav.ejs %>
+        <div class="flex flex-col w-full bg-zinc-800 text-white p-4 overflow-scroll h-screen text-center">
+            <div class="mt-40"><span class="material-symbols-outlined text-[70px] text-zinc-400">
+                troubleshoot
+                </span></div>
+            <h2 class="text-[20px] p-2 text-zinc-400 font-bold">Anime or episode not found</h2>
+            <p class="text-zinc-400 mb-4">Please check the search keyword or enter valid URL</p>
+            <a href="/home" class="p-1 bg-zinc-600 rounded-[8px] active:bg-zinc-700 w-full sm:w-64">Back to the Home</a>
+        </div>
+    </main>
+    <% include components/footer.ejs %>
+    <script src="/javascripts/script.js"></script>
+</body>
+</html>

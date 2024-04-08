@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore the exciting Anime and 3d Donghua on Anime Flare. Watch your favorite anime online with our streaming service. Most Popular anime - Jade Dynasty season 2, Battle Through the Heavens season 5, Against The Gods, Perfect World, Blader Soul, Soul Land season 2, One Punch Man season 3, Renegade Immortal, The Great Rular and many more.">
+  <link rel="canonical" href="https://www.animeflare.free.nf/home">
+  <link rel="icon" type="image/png" href="/images/20240402_165332.png">
+  <title>Anime Flare - Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.search-container {
+  position: relative;
+}
+
+#searchInput {
+  width: 100%;
+  border: 2px solid grey;
+  background-color: #2f2f2f;
+  border-radius: 10px;
+  padding: 8px;
+  font-size: 16px;
+}
+
+.search-results {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  color: #fff;
+  background-color: #272727;
+  border: 1px solid #636363;
+  border-radius: 10px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: none;
+  height: 31.4vh;
+  overflow: scroll;
+}
+
+.search-results li {
+  padding: 8px;
+  border-bottom: 1px solid #636363;
+  cursor: pointer;
+}
+
+.search-results li:last-child {
+  border-bottom: none;
+}
+
+  </style>
+</head>
+<body id="body">
+    <% include components/header.ejs %>
+    <main class="relative">
+        <% include components/nav.ejs %>
+        <div class="flex flex-col w-full bg-zinc-800 text-white p-4 h-screen overflow-scroll">
+            <button onclick="toggle(element)" id="searchButton" class="select-none item-center justify-center flex rounded-[50%] bg-zinc-600 active:scale-90 duration-200 absolute top-[-50px] right-14 h-8 w-8" style="padding-top: 3px;padding-bottom: 4px;">
+              <span class="material-symbols-outlined item-center justify-center flex">
+              search
+              </span>
+            </button>
+            <div class="search-container" id="search-containerid">
+              <input type="text" id="searchInput" placeholder="Search...">
+              <div id="searchSuggestions"></div>
+            </div>
+            <div class="inner">
+              <div class="banner-outer" id="banner-outerid">
+                <div class="slideshow-container banner w-full h-44 bg-zinc-900 rounded-[10px]">
+                  <% banner.forEach(function(bannerImg) { %>
+                    <a href="/anime/detail/<%= bannerImg.link %>">
+                      <div class="slide">
+                        <img src="/images/banner/<%= bannerImg.bannerImage %>" alt="<%= bannerImg.bannerImage %>">
+                        <div class="overlay">
+                          <p class="anime-name"><%= bannerImg.animeName %></p>
+                        </div>
+                      </div>
+                    </a>
+                  <% }); %>
+                </div>
+              </div>
+
+              <!-- Donghua Section -->
+
+              <!-- Trending section -->
+              <h2 class="text-[19px] mt-5 mb-5">Trending</h2>
+              <div class="trending-container">
+                <div class="poster-cover">
+                    <% popularAnime.forEach(function(anime) { %>
+                        <a href="/anime/detail/<%= anime.animeId %>/<%= 'S' + anime.season.length %>">
+                          <div class="post row-post">
+                            <img class="poster-img" src="/images/posters/<%= anime.poster %>" alt="<%= anime.name %> poster">
+                            <h1 class="title"><%= anime.name %></h1>
+                          </div>
+                        </a>
+                        <% }); %>
+                </div>
+              </div>
+              <!-- Recent episodes -->
+              <h2 class="text-[19px] mt-5 mb-5">Recent Episodes</h2>
+              <div class="recent-eps-container">
+                <div class="ep-post-cover">
+                  <% if (todayEpisodes.length > 0) { %>
+                    <!-- Render today's episodes -->
+                    <% todayEpisodes.forEach(function(episode) { %>
+                      <a href="/anime/watch/<%= episode.animeId %>/<%= episode.season %>/<%= episode.episodeId %>">
+                        <div class="ep-post row-ep-post">
+                          <img class="poster-img2" src="/images/thumbnails/<%= episode.thumbnail %>" alt="<%= episode.anime %> episode <%= episode.episodeNo %>">
+                          <h1 class="title"><%= episode.episodeTitle %></h1>
+                        </div>
+                      </a>
+                    <% }); %>
+                  <% } else { %>
+                    <!-- Display a message if no episodes were uploaded today -->
+                    <p class="text-zinc-400 italic text-[15px]">Episodes have not been uploaded yet.</p>
+                  <% } %>
+                </div>
+              </div>
+              <!-- New donghua -->
+              <h2 class="text-[19px] mt-5 mb-5">Recent Added Donghua</h2>
+              <div class="new-add-container">
+                <div class="poster-cover">
+                  <% recentAnime.forEach(function(anime) { %>
+                    <a href="/anime/detail/<%= anime.animeId %>/<%= 'S' + anime.season.length %>">
+                      <div class="post row-post">
+                        <img class="poster-img" src="/images/posters/<%= anime.poster %>" alt="<%= anime.name %> poster">
+                        <h1 class="title"><%= anime.name %></h1>
+                      </div>
+                    </a>
+                    <% }); %>
+                </div>
+              </div>
+              <!-- Other donghua -->
+              <p class="text-[19px] mt-5 mb-5">Watch Others</p>
+              <div class="others-container">
+                <div class="other-cover">
+                  <% otherAnime.forEach(function(anime) { %>
+                    <a href="/anime/detail/<%= anime.animeId %>/<%= 'S' + anime.season.length %>">
+                      <div class="post row-post inline-block">
+                        <img class="poster-img" src="/images/posters/<%= anime.poster %>" alt="<%= anime.name %> poster">
+                        <h1 class="title"><%= anime.name %></h1>
+                      </div>
+                    </a>
+                    <% }); %>
+                </div>
+              </div>
+            </div>
+        </div>
+    </main>
+    <% include components/footer.ejs %>
+    <script src="/javascripts/script.js"></script>
+    <script>
+const searchInput = document.getElementById('searchInput');
+const searchSuggestions = document.getElementById('searchSuggestions');
+const banner = document.getElementById('banner-outerid'); // Adjust the ID based on your HTML structure
+const searchBtn = document.getElementById('searchButton');
+
+searchInput.style.display = 'none';
+searchSuggestions.style.display = 'none';
+
+searchBtn.addEventListener('click', function() {
+    toggle(searchInput);
+    // toggle(searchSuggestions);
+});
+
+
+function toggle(element) {
+    if (element.style.display === 'none' || !element.style.display) {
+        element.style.display = 'block';
+    } else {
+        element.style.display = 'none';
+    }
+}
+searchInput.addEventListener('input', function() {
+    if (this.value.length > 0) {
+        searchSuggestions.style.display = 'block';
+    }
+    if (this.value.length === 0) {
+      searchSuggestions.style.display = 'none';
+    }
+});
+
+
+// Event listener for the search input
+searchInput.addEventListener('input', async (event) => {
+    const query = event.target.value;
+    if (query.length === 0) {
+        searchSuggestions.innerHTML = ''; // Clear suggestions if search box is empty
+        banner.style.display = 'block'; // Display the banner when search input is empty
+        return;
+    }
+
+    try {
+        const response = await fetch(`/search-suggestions?query=${query}`);
+        const suggestions = await response.json();
+        
+        // Populate the dropdown menu with search suggestions
+        searchSuggestions.innerHTML = '';
+        suggestions.forEach((suggestion) => {
+            const suggestionElement = document.createElement('a');
+            suggestionElement.href = `/anime/detail/${suggestion.animeId}/${suggestion.seasonId}`;
+            suggestionElement.innerHTML = `<div class="result-list">${suggestion.name}</div>`;
+            searchSuggestions.appendChild(suggestionElement);
+        });
+        
+        banner.style.display = 'none'; // Hide the banner when search input has value
+    } catch (error) {
+        console.error('Error fetching search suggestions:', error);
+    }
+});
+
+
+
+let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+    let slides = document.getElementsByClassName("slide");
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].classList.remove("active"); // Remove "active" class from all slides
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {
+        slideIndex = 1;
+    }
+    slides[slideIndex-1].classList.add("active"); // Add "active" class to the current slide
+    setTimeout(showSlides, 3000); // Change image every 3 seconds
+}
+
+function moveSlide(n) {
+    slideIndex += n;
+    showSlides();
+}
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="icon" type="image/png" href="/images/20240402_165332.png">
+  <title>Anime Flare</title>
+</head>
+<body id="body" onscroll="navPosition()">
+    <header class="sticky">
+        <div class="header-content border-b-2 border-black gap-2 w-full bg-[#191919] text-white flex item-center drop-shadow-lg py-[12px]">
+            <div class="flex items-center ml-2">
+                <button style="display: flex; align-items: center;" class="active:bg-zinc-800 duration-200 rounded-[50%] w-[33px] h-[33px] justify-center">
+                    <span id="nav-open" class="flex item-center  duration-200"><span class=" material-symbols-outlined">
+                        menu
+                    </span></span>
+                    <span id="nav-close" class="flex item-center duration-200"><span class=" material-symbols-outlined">
+                        close
+                        </span></span>
+                </button>
+            </div>
+            <a href="/home">
+                <div class="logo text-[22px] ml-1" title="Home"><img src="/images/Anime-cut.png" class="w-32" alt="Anime Flare logo"></div>
+            </a>
+            <a href="/check-loggedin">
+                <% if (user) { %>
+                    <div class="proile-pic absolute top-4 right-3"><img src="/images/profile-img/<%= user.userPic %>" alt="" class="w-8 rounded-full h-8"></div>
+                <% } else { %>
+                    <div class="proile-pic absolute top-4 right-3"><img src="/images/user-icon.png" alt="" class="w-8 rounded-full h-8"></div>
+                <% } %>
+            </a>
+        </div>
+    </header>
+    
+    <main class="relative">
+        <% include components/nav.ejs %>
+        <div class="flex flex-col w-full bg-zinc-800 text-white p-4 h-screen overflow-scroll">
+            <h2 class="text-[24px] font-bold mb-4">Privacy Policy Page</h2>
+
+            <p class="mt-4 mb-2"><b>Introduction:</b></p>
+            <p>At Anime Flare, we value your privacy. This Privacy Policy outlines how we collect, use, and protect your information. By using our platform, you agree to the terms outlined below.</p>
+
+            <p class="mt-4 mb-2"><b>Information Collected:</b></p>
+            <p>We collect limited information to enhance your experience on our platform. This may include account details, email addresses, and data obtained through analytics tools. Rest assured, we prioritize the security of your data.</p>
+
+            <p class="mt-4 mb-2"><b>Usage of Information:</b></p>
+            <p>The information collected is used to personalize your experience, provide donghua updates, and manage user accounts. We do not share your data with third parties for marketing purposes.</p>
+
+            <p class="mt-4 mb-2"><b>User Accounts:</b></p>
+            <p>Your user account is securely managed. You have control over your account settings, including the ability to update information and delete your account if desired. Our login and logout processes are designed with your security in mind.</p>
+
+            <p class="mt-4 mb-2"><b>Communication:</b></p>
+            <p>Opt-in to receive donghua updates and newsletters. You can opt-out at any time by adjusting your preferences in your account settings or contacting us directly.</p>
+
+            <p class="mt-4 mb-2"><b>Security Measures:</b></p>
+            <p>We employ industry-standard security measures to protect your data. This includes encryption, secure login practices, and ongoing monitoring to safeguard your information.</p>
+
+            <p class="mt-4 mb-2"><b>Third-Party Services:</b></p>
+            <p>Please note that we embed videos from Dailymotion and YouTube. <span class="font-semibold text-blue-200">We do not store or stream any anime or donghua content directly</span>. Third-party services may have their privacy policies, and we encourage you to review them.</p>
+
+            <p class="mt-4 mb-2"><b>Legal Compliance:</b></p>
+            <p>We comply with applicable laws and regulations concerning user privacy and data protection.</p>
+
+            <p class="mt-4 mb-2"><b>Contact Information:</b></p>
+            <p>For privacy-related inquiries or concerns, contact us at animeflare.site@gmail.com.</p>
+        </div>
+    </main>
+    <% include components/footer.ejs %>
+    <script src="/javascripts/script.js"></script>
+</body>
+</html>

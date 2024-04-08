@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="icon" type="image/png" href="/images/20240402_165332.png">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <title>Anime Flare</title>
+</head>
+<body>
+    <header class="sticky">
+        <div class="header-content border-b-2 border-black gap-2 w-full bg-[#191919] text-white flex item-center drop-shadow-lg py-[12px]">
+            <div class="flex item-center ml-2">
+                <button style="display: flex; align-items: center;" class="active:bg-zinc-800 duration-200 rounded-[50%] w-[33px] h-[33px] justify-center">
+                    <span id="nav-open" class="flex item-center  duration-200"><span class=" material-symbols-outlined">
+                        menu
+                    </span></span>
+                    <span id="nav-close" class="flex item-center duration-200"><span class=" material-symbols-outlined">
+                        close
+                        </span></span>
+                </button>
+            </div>
+            <div class="logo text-[22px] ml-1" title="Home"><img src="/images/Anime-cut.png" class="w-32" alt="Anime Flare logo"></div>
+        </div>
+    </header>
+    <main class="relative">
+        <marquee class="text-white bg-zinc-800 absolute" >Watch you favourite Anime and 3D Donghua For Free in Anime <span class="text-[#FF1C1C] font-semibold">Flare</span>.</marquee>
+        <div class="register-page flex item-center justify-center w-full h-screen bg-zinc-800">
+
+            <form action="/login" method="post">
+            <div class="w-64 mt-16 h-84 rounded-[20px] bg-white drop-shadow-lg flex flex-col text-center gap-2 p-4 bg-zinc-700">
+                <p class="text-[20px] text-white mb-4">Login Now</p>
+                    <input type="text" placeholder="Username" name="username" id="username" class="border-2 border-[grey] rounded-[7px] p-1 bg-zinc-700 w-full" required>
+                    <div class="pass-box ">
+                        <input type="password" name="password" placeholder="Password" id="password" class="border-2 border-[grey] rounded-[7px] w-full p-1 bg-zinc-700" required>
+                        <span id="show" class="ml-[-5px] absolute right-2 top-[7px]" onclick="show()"><span class="material-symbols-outlined text-[21px]">
+                            visibility
+                            </span></span>
+                        <span id="hide" class="ml-[-5px] absolute right-2 top-[7px]" onclick="hide()"><span class="material-symbols-outlined  text-[21px]">
+                            visibility_off
+                            </span></span>
+                    </div>
+                    <% if(error.length > 0){ %>
+                        <p class="error text-red-500 font-semibold"><%= error %></p>
+                    <% } %>
+                    <button class="bg-blue-400 text-white py-2 px-3 rounded-[8px] mt-4 w-full active:bg-blue-800 duration-200">Log in</button>
+                </form>
+                <a href="/" class="bg-white text-black py-2 px-3 rounded-[8px] active:bg-zinc-800 duration-200">Cancel</a>
+            </div>
+            <% include components/nav.ejs %>
+        </div>
+    </main>
+    <% include components/footer.ejs %>
+    <script src="/javascripts/script.js"></script>
+</body>
+</html>

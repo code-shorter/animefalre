@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore the exciting episodes of <%= animeData.name %> <%= seasonData.displayName %> on Anime Flare. Watch your favorite anime online with our streaming service.">
+  <link rel="canonical" href="https://www.animeflare.free.nf/anime/detail/<%= animeData.animeId %>/<%= seasonData.seasonId %>">
+  <title><%= animeData.name %> - <%= seasonData.displayName %> | Anime Flare</title>
+  <link rel="icon" type="image/png" href="/images/20240402_165332.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body id="body">
+    <% include components/header.ejs %>
+    <main class="relative">
+        <% include components/nav.ejs %>
+        <div class="flex flex-col w-full bg-zinc-800 text-white p-4 overflow-scroll h-screen">
+            <div class="inner mt-4">
+                <img src="/images/posters/<%= animeData.poster %>" class="w-36 rounded-[10px]">
+                <h1 class="text-[22px] mt-2 mb-2"><%= animeData.name %> <%= seasonData.displayName %></h1>
+                <a class="bg-[#fe2626] py-1 px-3 rounded-[7px] font-semibold active:bg-red-800 duration-200" href="/anime/watch/<%= animeData.animeId %>/S1/ep1">Play from beginning</a>
+                <h2 class="text-[18px] mt-4 mb-2">Seasons</h2>
+                <div class="season-container flex overflow-x-scroll overflow-y-hidden">
+                    <div class="season-cover flex gap-2" id="season-cover">
+                        <% animeData.season.forEach(function(season) { %>
+                            <a href="/anime/detail/<%= animeData.animeId %>/<%= season.seasonId %>">
+                                <div class="h-[60px] w-[120px] relative rounded-[10px] overflow-hidden active:bg-[#00000051] duration-200">
+                                    <img src="/images/season/<%= season.seasonImg %>" class="season-img absolute left-0 right-0 top-0 bottom-0" height="60px" width="120px" alt="<%= animeData.name %> <%= seasonData.displayName %>">
+                                    <div class="season-box absolute">
+                                        <h3 class="season-num"><%= season.displayName %></h3>
+                                    </div>
+                                </div>
+                            </a>
+                        <% }); %>
+                    </div>
+                </div>
+                <h2 class="text-[18px] mt-4 mb-2">Episodes</h2>
+                <div class="episode-container bg-zinc-900 rounded-[10px] w-full min-h-36 max-h-72 overflow-y-scroll p-2">
+                    <% if (seasonData.episodes && seasonData.episodes.length > 0) { %>
+                        <% seasonData.episodes.forEach(function(episode) { %>
+                            <a href="/anime/watch/<%= animeData.animeId %>/<%= episode.season %>/<%= episode.episodeId %>">
+                                <div class="eps font-semibold bg-zinc-600 active:bg-zinc-800 duration-200"><%= episode.episodeNo %></div>
+                            </a>
+                        <% }); %>
+                    <% } else { %>
+                        <p class="italic text-zinc-400 pb-2">Episodes are unavailable.</p>
+                    <% } %>
+                </div>
+                <h2 class="text-[18px] mt-4 mb-2">Description</h2>
+                <p class="text-[15px] mb-2"><%= animeData.description %></p>
+
+            </div>
+        </div>
+    </main>
+    <% include components/footer.ejs %>
+    <script src="/javascripts/script.js"></script>
+</body>
+</html>

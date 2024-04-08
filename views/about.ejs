@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" type="image/png" href="/images/20240402_165332.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <title>Anime Flare</title>
+</head>
+<body id="body">
+    <header class="sticky">
+        <div class="header-content border-b-2 border-black gap-2 w-full bg-[#191919] text-white flex item-center drop-shadow-lg py-[12px]">
+            <div class="flex items-center ml-2">
+                <button style="display: flex; align-items: center;" class="active:bg-zinc-800 duration-200 rounded-[50%] w-[33px] h-[33px] justify-center">
+                    <span id="nav-open" class="flex item-center  duration-200"><span class=" material-symbols-outlined">
+                        menu
+                    </span></span>
+                    <span id="nav-close" class="flex item-center duration-200"><span class=" material-symbols-outlined">
+                        close
+                        </span></span>
+                </button>
+            </div>
+            <a href="/home"><div class="logo text-[22px] ml-1" title="Home"><img src="/images/Anime-cut.png" class="w-32" alt="Anime Flare logo"></div></a>
+            <a href="/check-loggedin">
+                <% if (user) { %>
+                    <div class="proile-pic absolute top-4 right-3"><img src="/images/profile-img/<%= user.userPic %>" alt="" class="w-8 rounded-full h-8"></div>
+                <% } else { %>
+                    <div class="proile-pic absolute top-4 right-3"><img src="/images/user-icon.png" alt="" class="w-8 rounded-full h-8"></div>
+                <% } %>
+            </a>
+        </div>
+    </header>    
+    <main class="relative">
+        <% include components/nav.ejs %>
+        <div class="flex flex-col w-full bg-zinc-800 text-white p-4 overflow-scroll h-screen">
+            <h2 class="text-[24px] font-bold mb-4">About Page</h2>
+
+            <p class="mt-4 mb-2"><b>Introduction:</b></p>
+            <p>Welcome to Anime Flare, a platform created for anime and donghua enthusiasts. Our passion for these art forms has driven us to curate a unique space where fans can connect, discover, and enjoy a diverse range of content.</p>
+
+            <p class="mt-4 mb-2"><b>Mission and Vision:</b></p>
+            <p>Our mission is to provide a user-friendly platform that celebrates the world of anime and donghua. We aim to create an engaging space where fans can explore, share, and stay updated on their favorite shows.</p>
+
+            <p class="mt-4 mb-2"><b>Content Offered:</b></p>
+            <p>Discover a wide variety of anime and donghua content on our platform. From classic series to the latest releases, we strive to cater to diverse tastes and preferences within the anime community.</p>
+
+            <p class="mt-4 mb-2"><b>User Experience:</b></p>
+            <p>We are committed to delivering an exceptional user experience. Our platform features easy navigation, a clean design, and innovative features to enhance your anime-watching experience.</p>
+
+            <p class="mt-4 mb-2"><b>Updates and Features:</b></p>
+            <p>tay tuned for regular updates and exciting features. Whether you're a seasoned anime fan or a newcomer, we have something special for everyone. Enjoy features like user accounts, playlists, and more.</p>
+
+            <p class="mt-4 mb-2"><b>Community Engagement:</b></p>
+            <p>Join our growing community! Engage in discussions, share your thoughts, and connect with fellow fans. We believe in fostering a positive and welcoming environment for anime enthusiasts worldwide.</p>
+
+            <p class="mt-4 mb-2"><b>Contact Information:</b></p>
+            <p>Have questions or suggestions? Feel free to reach out to us at animeflare.site@gmail.com.</p>
+
+            
+        </div>
+    </main>
+    <% include components/footer.ejs %>
+    <script src="/javascripts/script.js"></script>
+</body>
+</html>
