@@ -6,7 +6,6 @@ var logger = require('morgan');
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
-const errorHandler = require('./middlewares/error-handler')
 
 
 var indexRouter = require('./routes/index');
@@ -30,7 +29,6 @@ app.use(passport.session());
 passport.serializeUser(usersRouter.serializeUser());
 passport.deserializeUser(usersRouter.deserializeUser());
 
-app.use(errorHandler);
 
 // Parse JSON and URL-encoded bodies
 app.use(express.json());
