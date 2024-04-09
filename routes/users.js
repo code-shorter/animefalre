@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const passportLocalMongoose = require('passport-local-mongoose');
-mongoose.connect("mongodb+srv://anmol8120170003:brrDVrJb97fSJtUz@cluster0.neserka.mongodb.net/
+mongoose.connect("mongodb+srv://anmol8120170003:anmolanimecore@cluster0.neserka.mongodb.net/
 ");
 
 // models/User.js
