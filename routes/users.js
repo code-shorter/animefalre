@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const passportLocalMongoose = require('passport-local-mongoose');
-mongoose.connect("mongodb+srv://readeruser:9BA9jiFzRsyw1GML@cluster0.neserka.mongodb.net/animeflare
-");
+mongoose.connect("mongodb+srv://readeruser:9BA9jiFzRsyw1GML@cluster0.neserka.mongodb.net/animeflare");
+
 
 // models/User.js
 const userSchema = new mongoose.Schema({
