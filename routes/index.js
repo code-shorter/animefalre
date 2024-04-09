@@ -317,7 +317,8 @@ router.get('/not-found', async (req, res) => {
 router.post('/comment', async (req, res) => {
   try {
     const episodeId = req.body.episodeId;
-    const episode = await episodeModel.findOne({ episodeId: episodeId });
+    const animeId = req.body.animeId;
+    const episode = await episodeModel.findOne({ animeId: animeId, episodeId: episodeId });
 
     if (!episode) {
       return res.status(404).send('Episode not found');
@@ -327,7 +328,8 @@ router.post('/comment', async (req, res) => {
       userPic: req.body.userPic,
       username: req.body.username,
       text: req.body.text,
-      episodeId: episodeId
+      episodeId: episodeId,
+      animeId: animeId
     });
 
     // Ensure episode.comments exists before pushing the new comment's ID
