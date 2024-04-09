@@ -6,11 +6,18 @@ var logger = require('morgan');
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
-const errorHandler = require('./middlewares/error-handler')
+const MongoDBStore = require('connect-mongodb-session')(session);
 
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// Import routes
+const indexRouter = require('./routes/index');
+// const animeRouter = require('./routes/animeDB');
+// const episodeRouter = require('./routes/episodeDB');
+// const seasonRouter = require('./routes/seasonDB');
+// const bannerRouter = require('./routes/bannerDB');
+const usersRouter = require('./routes/users');
+// const multerRouter = require('./routes/multer');
+// const commentRouter = require('./routes/commentDB');
+// const adminRouter = require('./routes/admin');
 
 var app = express();
 
@@ -18,11 +25,16 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+const store = new MongoDBStore({
+  uri: 'mongodb+srv://anmol8120170003:brrDVrJb97fSJtUz@cluster0.neserka.mongodb.net/',
+  collection: 'sessions'
+});
+
 // Express session and Passport initialistion //
 app.use(session({
   resave: false,
   saveUninitialized: false,
-  secret: "session-code-10101"
+  secret: "animeflare-session-10101"
 }));
 app.use(flash());
 app.use(passport.initialize());
@@ -30,7 +42,6 @@ app.use(passport.session());
 passport.serializeUser(usersRouter.serializeUser());
 passport.deserializeUser(usersRouter.deserializeUser());
 
-app.use(errorHandler);
 
 // Parse JSON and URL-encoded bodies
 app.use(express.json());
@@ -43,8 +54,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Use routes
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
+// app.use('/anime', animeRouter);
+// app.use('/episode', episodeRouter);
+// app.use('/season', seasonRouter);
+// app.use('/banner', bannerRouter);
+// app.use('/multer', multerRouter);
+// app.use('/comment', commentRouter);
+// app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

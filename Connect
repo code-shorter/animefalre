@@ -1,1 +1,10 @@
 mongodb+srv://anmol8120170003:brrDVrJb97fSJtUz@cluster0.neserka.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+mongodb+srv://anmol8120170003:brrDVrJb97fSJtUz@cluster0.neserka.mongodb.net/
+
+
+mongoimport --uri  mongodb+srv://anmol8120170003:brrDVrJb97fSJtUz@cluster0.neserka.mongodb.net/animeflare  --collection  admins  --type  JSON   --file  C:\Users\admin\Desktop\download\animeflare.animes.json
+
+
+
+mongodb://anmol8120170003:brrDVrJb97fSJtUz@ac-vam4o4u-shard-00-00.neserka.mongodb.net:27017,ac-vam4o4u-shard-00-01.neserka.mongodb.net:27017,ac-vam4o4u-shard-00-02.neserka.mongodb.net:27017/?replicaSet=atlas-6tz8mx-shard-0&ssl=true&authSource=admin

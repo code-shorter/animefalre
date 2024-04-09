@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: false }));
-const nodemailer = require('nodemailer');
 const userModel = require('./users');
 const passport = require('passport');
 const localStrategy = require("passport-local");
