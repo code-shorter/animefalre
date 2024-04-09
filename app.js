@@ -8,16 +8,9 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const MongoDBStore = require('connect-mongodb-session')(session);
 
-// Import routes
-const indexRouter = require('./routes/index');
-// const animeRouter = require('./routes/animeDB');
-// const episodeRouter = require('./routes/episodeDB');
-// const seasonRouter = require('./routes/seasonDB');
-// const bannerRouter = require('./routes/bannerDB');
-const usersRouter = require('./routes/users');
-// const multerRouter = require('./routes/multer');
-// const commentRouter = require('./routes/commentDB');
-// const adminRouter = require('./routes/admin');
+
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
 
 var app = express();
 
