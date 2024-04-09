@@ -19,7 +19,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 const store = new MongoDBStore({
-  uri: 'mongodb+srv://anmol8120170003:brrDVrJb97fSJtUz@cluster0.neserka.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+  uri: 'mongodb+srv://anmol8120170003:brrDVrJb97fSJtUz@cluster0.neserka.mongodb.net/
+',
   collection: 'sessions'
 });
 
