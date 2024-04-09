@@ -93,7 +93,7 @@ router.get('/search-suggestions', async (req, res) => {
       const lastSeason = anime.season.length > 0 ? anime.season.length : 1;
       return {
         animeId: anime.animeId,
-        seasonId: `${anime.animeId}-S${lastSeason}`,
+        seasonId: `S${lastSeason}`,
         name: anime.name
       };
     });
