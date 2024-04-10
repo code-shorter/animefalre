@@ -13,6 +13,14 @@ const commentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  animeId: {
+    type: String,
+    required: true
+  },
+  seasonId: {
+    type: String,
+    required: true
+  },
   episodeId: {
     type: String,
     required: true
