@@ -318,7 +318,8 @@ router.post('/comment', async (req, res) => {
   try {
     const episodeId = req.body.episodeId;
     const animeId = req.body.animeId;
-    const episode = await episodeModel.findOne({ animeId: animeId, episodeId: episodeId });
+    const seasonId = req.body.seasonId;
+    const episode = await episodeModel.findOne({ animeId: animeId, seasonId: seasonId, episodeId: episodeId });
 
     if (!episode) {
       return res.status(404).send('Episode not found');
