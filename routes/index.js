@@ -330,6 +330,7 @@ router.post('/comment', async (req, res) => {
       username: req.body.username,
       text: req.body.text,
       episodeId: episodeId,
+      seasonId: seasonId,
       animeId: animeId
     });
 
