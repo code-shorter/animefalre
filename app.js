@@ -6,6 +6,7 @@ var logger = require('morgan');
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
+const cors = require('cors');
 // const MongoDBStore = require('connect-mongodb-session')(session);
 
 
@@ -41,6 +42,9 @@ passport.deserializeUser(usersRouter.deserializeUser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(cors({
+  origin: 'https://recall-web-url.web.app'
+}));
 
 app.use(logger('dev'));
 app.use(express.json());
