@@ -335,7 +335,7 @@ router.post('/comment', async (req, res) => {
     }
     console.log(`Comment processing on Anime: ${animeId}, Season: ${seasonId}, Episode: ${episodeId}`)
 
-    const episode = await episodeModel.findOne({ animeId: animeId, seasonId: seasonId, episodeId: episodeId });
+    const episode = await episodeModel.findOne({ animeId: animeId, season: seasonId, episodeId: episodeId });
     if (!episode) {
       return res.status(404).send("Episode not found");
     }
