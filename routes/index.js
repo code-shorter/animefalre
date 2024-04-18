@@ -27,6 +27,10 @@ router.get('/login', function(req, res, next) {
   res.render('login', {error: req.flash('error')});
 });
 
+router.get('/health', (req, res) => {
+  res.sendStatus(200); // Return a 200 OK response
+});
+
 
 // Register page route
 router.get('/register', function(req, res, next) {
