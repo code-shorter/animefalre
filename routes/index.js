@@ -320,14 +320,26 @@ router.get('/not-found', async (req, res) => {
 // Upload Comment
 router.post('/comment', async (req, res) => {
   try {
-    const episodeId = req.body.episodeId;
     const animeId = req.body.animeId;
     const seasonId = req.body.seasonId;
-    const episode = await episodeModel.findOne({ animeId: animeId, seasonId: seasonId, episodeId: episodeId });
-
-    if (!episode) {
-      return res.status(404).send('Episode not found');
+    const episodeId = req.body.episodeId;
+    
+    if (!animeId) {
+      return res.status(404).send("Anime ID doesn't exist");
     }
+    if (!seasonId) {
+      return res.status(404).send("Season ID doesn't exist");
+    }
+    if (!episodeId) {
+      return res.status(404).send("Episode ID doesn't exist");
+    }
+    console.log(`Comment processing on Anime: ${animeId}, Season: ${seasonId}, Episode: ${episodeId}`)
+
+    const episode = await episodeModel.findOne({ animeId: animeId, seasonId: seasonId, episodeId: episodeId });
+    if (!episode) {
+      return res.status(404).send("Episode not found");
+    }
+
 
     const newComment = await commentModel.create({
       userPic: req.body.userPic,
