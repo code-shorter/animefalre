@@ -346,7 +346,9 @@ router.post('/comment', async (req, res) => {
 
     await episode.save();
 
-    res.redirect(req.headers.referer + '#comment-section');
+    // res.redirect(req.headers.referer + '#comment-section');
+    // Send a JSON response indicating the URL to redirect to
+    res.json({ redirectTo: req.headers.referer + '#comment-section' });
   } catch (error) {
     console.error('Error uploading comment:', error);
     res.status(500).send('Error uploading comment.');
