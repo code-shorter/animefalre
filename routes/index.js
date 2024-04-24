@@ -416,6 +416,37 @@ router.post('/admin/login', async function(req, res) {
     res.status(500).render('error');
   }
 });
+// Admin data route
+route: router.get("/admindata", async (req, res) => {
+  try {
+    const request = req.query.selected;
+
+    const anime = await animeModel.findOne({ animeId: request });
+    const seasonId = "S" + anime.season.length;
+    const season = await seasonModel.findOne({
+      animeId: request,
+      seasonId: seasonId,
+    });
+    const episode = await episodeModel.find({
+      animeId: "the-great-ruler",
+      season: "S1",
+    });
+
+    const episodeNo = season.episodes.length + 1;
+    console.log(`Season: ${season.seasonId}, episode: ${episodeNo}`);
+
+    res.json({
+      // Sending response using res.json()
+      season: season.season,
+      episode: episode,
+      episodeNo: episodeNo,
+    });
+  } catch (error) {
+    console.error("An error occurs in Admin data API: " + error);
+    res.status(500).json({ error: "Internal Server Error" }); // Sending error response
+  }
+});
+
 
 // Admin dashboard route
 router.get('/admin/dashboard_code-365', requireAdminAuthentication, async function(req, res) {
