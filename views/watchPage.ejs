@@ -20,13 +20,13 @@
             <div class="player-cover bg-zinc-700 w-full p-2">
               <div class="player-container pb-1">
                 <iframe id="player" class="bg-black" src="<%= episodeData.server1 ? `${episodeData.server1}?autoplay=1` : '' %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                <a href="/anime/watch/<%= animeData.animeId %>/<%= seasonData.seasonId %>/<%= 'ep' + ( episodeData.episodeNo - 1 ) %>" onclick="prev()" id="prev-ep" class="inline-flex bg-zinc-600 p-[2px] m-1 rounded-[5px] text-[14px] w-20 justify-center active:bg-zinc-800 duration-200">
+                <a href="/anime/watch/<%= animeData.animeId %>/<%= seasonData.seasonId %>/<%= 'ep' + ( episodeData.episodeNo - 1 ) %>" onclick="prev()" id="prev-ep" class="inline-flex bg-zinc-600 p-[2px] m-1 rounded-[5px] text-[14px] w-20 justify-center items-center active:bg-zinc-800 duration-200">
                   <span class="material-symbols-outlined">
                     skip_previous
                     </span>
                     Prev
                 </a>
-                <a href="/anime/watch/<%= animeData.animeId %>/<%= seasonData.seasonId %>/<%= 'ep' + ( episodeData.episodeNo + 1 ) %>" onclick="next()" id="next-ep" class="inline-flex bg-zinc-600  p-[2px] mt-2 rounded-[5px] text-[14px] w-20 justify-center active:bg-zinc-800 duration-200">
+                <a href="/anime/watch/<%= animeData.animeId %>/<%= seasonData.seasonId %>/<%= 'ep' + ( episodeData.episodeNo + 1 ) %>" onclick="next()" id="next-ep" class="inline-flex bg-zinc-600  p-[2px] mt-2 rounded-[5px] text-[14px] w-20 justify-center items-center active:bg-zinc-800 duration-200">
                   <span class="material-symbols-outlined">
                     skip_next
                     </span>
