@@ -428,8 +428,8 @@ route: router.get("/admindata", async (req, res) => {
       seasonId: seasonId,
     });
     const episode = await episodeModel.find({
-      animeId: "the-great-ruler",
-      season: "S1",
+      animeId: request, //btth
+      season: seasonId, //S5
     });
 
     const episodeNo = season.episodes.length + 1;
