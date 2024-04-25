@@ -78,7 +78,7 @@
                 <p class="episode-heading text-[20px] sm:text-[30px] font-bold">Upload Episode</p>
                 <div class="upper-flex-container sm:flex w-full">
                   <div class="p-2 w-full">
-                    <form action="/upload-episode" id="ep-form" class="flex flex-col gap-1 sm:gap-2 w-full sm:w-96 " method="post" enctype="multipart/form-data">
+                    <form action="/upload-episode" id="ep-form" class="flex flex-col gap-1 sm:gap-2 w-full sm:w-96" method="post" enctype="multipart/form-data" onsubmit="submitForm(event)">
                       <label for="animeId">Select Donghua</label>
                       <select name="animeId" class="bg-zinc-100 rounded-[8px] p-1 sm:p-2" id="selected-anime">
                         <option value="" disabled selected>Select Donghua</option>
