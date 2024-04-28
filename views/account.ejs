@@ -31,7 +31,7 @@
                           <% } else { %>
                             <img src="/images/user-icon.png" alt="Default Profile Image" class="w-32 h-32 rounded-full">
                           <% } %>
-                    <span class="material-symbols-outlined pointer absolute right-0 bottom-0 text-black bg-white p-1 rounded-full translate-x-[-6px] translate-y-[-6px] active:bg-zinc-400 duration-200" id="uploadButton">
+                    <span class="material-symbols-outlined select-none pointer absolute right-0 bottom-0 text-black bg-white p-1 rounded-full translate-x-[-6px] translate-y-[-6px] active:bg-zinc-400 duration-200" id="uploadButton">
                         edit
                         </span>
                     </div>
@@ -64,6 +64,12 @@
         </div>
     </main>
     <script>
+    const uploadButton = document.getElementById('uploadButton');
+    const fileInput = document.getElementById('fileInput');
+
+    uploadButton.addEventListener('click', function() {
+        fileInput.click(); // Trigger click event on file input
+    });
         function opn() {
             document.getElementById('popup').removeAttribute('hidden');
         }
@@ -71,33 +77,25 @@
             document.getElementById('popup').setAttribute('hidden', "");
         }
 
-        document.getElementById("myForm").addEventListener("submit", function(event) {
-      const fileInput = document.getElementById("fileInput");
-      const file = fileInput.files[0];
-  
-      if (file) {
-        const allowedExtensions = /(\.png|\.jpg|\.jpeg|\.webp)$/i;
-        const allowedTypes = /^image\//;
-
-        if (!allowedExtensions.test(file.name) || !allowedTypes.test(file.type)) {
-          alert("Please upload a valid image file (PNG, JPG, JPEG, or WEBP).");
-          event.preventDefault(); // Prevent form submission
-        }
-      } else {
-        alert("Please select a file.");
-        event.preventDefault(); // Prevent form submission
-      }
-    });
-
-        document.addEventListener('DOMContentLoaded', function() {
-          const uploadButton = document.getElementById('uploadButton');
-          const fileInput = document.getElementById('fileInput');
+//        document.getElementById("myForm").addEventListener("submit", function(event) {
+//      const fileInput = document.getElementById("fileInput");
+//      const file = fileInput.files[0];
+//  
+//      if (file) {
+//        const allowedExtensions = /(\.png|\.jpg|\.jpeg|\.webp)$/i;
+//        const allowedTypes = /^image\//;
+//
+//        if (!allowedExtensions.test(file.name) || !allowedTypes.test(file.type)) {
+//          alert("Please upload a valid image file (PNG, JPG, JPEG, or WEBP).");
+ //         event.preventDefault(); // Prevent form submission
+//        }
+//      } else {
+//        alert("Please select a file.");
+//        event.preventDefault(); // Prevent form submission
+//      }
+//    });
       
-          uploadButton.addEventListener('click', function() {
-            fileInput.click(); // Trigger click event on file input
-          });
-        });
-        document.addEventListener('DOMContentLoaded', function() {
+
   // Assuming you have a way to fetch the user's email dynamically, 
   // replace the static example with the dynamic email retrieval code
   const userEmail = getUserEmail(); 
@@ -107,7 +105,6 @@
 
   // Display the masked email
   document.getElementById('emailInput').textContent = maskedEmail;
-});
 
 // Function to fetch the user's email dynamically (replace this with your own code)
 function getUserEmail() {
@@ -122,8 +119,6 @@ function maskEmail(email) {
   const domainPart = email.substring(atIndex); // Get the domain part of the email
   return maskedPart + domainPart; // Combine the masked part with the domain part
 }
-
-
       </script>
       
 </body>
