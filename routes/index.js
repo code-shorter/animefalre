@@ -12,6 +12,10 @@ const commentModel = require('./commentDB');
 const seasonModel = require('./seasonDB');
 const adminModel = require('./admin');
 
+router.get('/check-server-health', (req, res) => {
+  return res.sendStatus(200); // Return a 200 OK response
+})
+
 /* intro page. */
 router.get('/', function(req, res, next) {
   res.render('index');
@@ -23,10 +27,6 @@ router.get('/index', function(req, res, next) {
 // login page
 router.get('/login', function(req, res, next) {
   res.render('login', {error: req.flash('error')});
-});
-
-router.get('/health', (req, res) => {
-  res.sendStatus(200); // Return a 200 OK response
 });
 
 
@@ -368,7 +368,7 @@ router.post('/comment', async (req, res) => {
 
 
 // Account Update
-router.post('/account-update', upload.single('profileImg'), async function(req, res, next) {
+router.post('/account-update', upload.single('profileImg'), handleImageUpload, async function(req, res, next) {
   try {
     if (!req.file) {
       return res.status(400).send('No file was uploaded.');
@@ -476,7 +476,7 @@ function requireAdminAuthentication(req, res, next) {
 
 
 // Upload banner
-router.post('/update-banner', upload.single('bannerImg'), async (req, res) => {
+router.post('/update-banner', upload.single('bannerImg'), handleImageUpload, async (req, res) => {
 
     const postLink = req.body.link
     const link = 'anime/deatil/' + postLink;
@@ -496,7 +496,7 @@ router.post('/update-banner', upload.single('bannerImg'), async (req, res) => {
 });
 
 //Upload route
-router.post('/upload-donghua', upload.single('posterImg'), async function(req, res) {
+router.post('/upload-donghua', upload.single('posterImg'), handleImageUpload, async function(req, res) {
   if(!req.file) {
     return res.status(400).send('No file were uploaded.');
   }
@@ -536,7 +536,7 @@ router.get('/api/anime/:animeId/seasons', async (req, res) => {
 // Upload episode
 
 // Upload route for episodes
-router.post('/upload-episode', upload.single('thumbnail'), async function(req, res) {
+router.post('/upload-episode', upload.single('thumbnail'), handleImageUpload, async function(req, res) {
   try {
     if (!req.file) {
       return res.status(400).send('No file was uploaded.');
@@ -594,7 +594,7 @@ router.post('/upload-episode', upload.single('thumbnail'), async function(req, r
   // Update and Delete routes //
 
   // Create seasons
-router.post('/create-season', upload.single('seasonImg'), async function(req, res) {
+router.post('/create-season', upload.single('seasonImg'), handleImageUpload, async function(req, res) {
   try {
     const animeId = req.body.animeId; // Get the animeId from the request body
 
@@ -664,7 +664,7 @@ router.post('/delete-season', async (req, res) => {
 });
 
 // Update Anime
-router.post('/update-donghua', upload.single('posterImg'), async function(req, res) {
+router.post('/update-donghua', upload.single('posterImg'), handleImageUpload, async function(req, res) {
   try {
     // Check if file is uploaded
     let poster;
@@ -735,7 +735,7 @@ router.post('/delete-donghua', async (req, res) => {
 });
 
 // Update Episode
-router.post('/update-episode', upload.single('thumbnail'), async function(req, res) {
+router.post('/update-episode', upload.single('thumbnail'), handleImageUpload, async function(req, res) {
   try {
     // Check if file is uploaded
     let thumbnail;
