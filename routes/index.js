@@ -1,12 +1,10 @@
 var express = require('express');
 var router = express.Router();
-const bodyParser = require('body-parser');
-router.use(bodyParser.urlencoded({ extended: false }));
 const userModel = require('./users');
 const passport = require('passport');
 const localStrategy = require("passport-local");
 passport.use(new localStrategy(userModel.authenticate()));
-const upload = require('./multer');
+const { upload, handleImageUpload } = require("./multer");
 const animeModel = require('./animeDB');
 const episodeModel = require('./episodeDB');
 const bannerModel = require('./bannerDB');
