@@ -81,7 +81,7 @@
                   <% banner.forEach(function(bannerImg) { %>
                     <a href="/anime/detail/<%= bannerImg.link %>">
                       <div class="slide">
-                        <img src="/images/banner/<%= bannerImg.bannerImage %>" alt="<%= bannerImg.bannerImage %>">
+                        <img src="<%= bannerImg.bannerImage %>" onerror="this.src='/images/banner/<%= bannerImg.bannerImage %>';" alt="<%= bannerImg.bannerImage %>">
                         <div class="overlay">
                           <p class="anime-name"><%= bannerImg.animeName %></p>
                         </div>
@@ -100,7 +100,7 @@
                     <% popularAnime.forEach(function(anime) { %>
                         <a href="/anime/detail/<%= anime.animeId %>/<%= 'S' + anime.season.length %>">
                           <div class="post row-post">
-                            <img class="poster-img" src="/images/posters/<%= anime.poster %>" alt="<%= anime.name %> poster">
+                            <img class="poster-img" src="<%= anime.poster %>" onerror="this.src='/images/posters/<%= anime.poster %>';" alt="<%= anime.name %> poster">
                             <h1 class="title"><%= anime.name %></h1>
                           </div>
                         </a>
@@ -116,7 +116,7 @@
                     <% todayEpisodes.forEach(function(episode) { %>
                       <a href="/anime/watch/<%= episode.animeId %>/<%= episode.season %>/<%= episode.episodeId %>">
                         <div class="ep-post row-ep-post">
-                          <img class="poster-img2" src="/images/thumbnails/<%= episode.thumbnail %>" alt="<%= episode.anime %> episode <%= episode.episodeNo %>">
+                          <img class="poster-img2" src="<%= episode.thumbnail %>" alt="<%= episode.anime %> episode <%= episode.episodeNo %>">
                           <h1 class="title"><%= episode.episodeTitle %></h1>
                         </div>
                       </a>
@@ -134,7 +134,7 @@
                   <% recentAnime.forEach(function(anime) { %>
                     <a href="/anime/detail/<%= anime.animeId %>/<%= 'S' + anime.season.length %>">
                       <div class="post row-post">
-                        <img class="poster-img" src="/images/posters/<%= anime.poster %>" alt="<%= anime.name %> poster">
+                        <img class="poster-img" src="<%= anime.poster %>" onerror="this.src='/images/posters/<%= anime.poster %>';" alt="<%= anime.name %> poster">
                         <h1 class="title"><%= anime.name %></h1>
                       </div>
                     </a>
@@ -148,7 +148,7 @@
                   <% otherAnime.forEach(function(anime) { %>
                     <a href="/anime/detail/<%= anime.animeId %>/<%= 'S' + anime.season.length %>">
                       <div class="post row-post inline-block">
-                        <img class="poster-img" src="/images/posters/<%= anime.poster %>" alt="<%= anime.name %> poster">
+                        <img class="poster-img" src="<%= anime.poster %>" onerror="this.src='/images/posters/<%= anime.poster %>';" alt="<%= anime.name %> poster">
                         <h1 class="title"><%= anime.name %></h1>
                       </div>
                     </a>
