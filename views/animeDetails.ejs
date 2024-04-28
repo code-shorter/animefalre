@@ -17,7 +17,7 @@
         <% include components/nav.ejs %>
         <div class="flex flex-col w-full bg-zinc-800 text-white p-4 overflow-scroll h-screen">
             <div class="inner mt-4">
-                <img src="/images/posters/<%= animeData.poster %>" class="w-36 rounded-[10px]">
+                <img src="<%= animeData.poster %>" onerror="this.src='/images/posters/<%= animeData.poster %>';" class="w-36 rounded-[10px]">
                 <h1 class="text-[22px] mt-2 mb-2"><%= animeData.name %> <%= seasonData.displayName %></h1>
                 <a class="bg-[#fe2626] py-1 px-3 rounded-[7px] font-semibold active:bg-red-800 duration-200" href="/anime/watch/<%= animeData.animeId %>/S1/ep1">Play from beginning</a>
                 <h2 class="text-[18px] mt-4 mb-2">Seasons</h2>
@@ -26,7 +26,7 @@
                         <% animeData.season.forEach(function(season) { %>
                             <a href="/anime/detail/<%= animeData.animeId %>/<%= season.seasonId %>">
                                 <div class="h-[60px] w-[120px] relative rounded-[10px] overflow-hidden active:bg-[#00000051] duration-200">
-                                    <img src="/images/season/<%= season.seasonImg %>" class="season-img absolute left-0 right-0 top-0 bottom-0" height="60px" width="120px" alt="<%= animeData.name %> <%= seasonData.displayName %>">
+                                    <img src="<%= season.seasonImg %>" onerror="this.src='/images/season/<%= season.seasonImg %>';" class="season-img absolute left-0 right-0 top-0 bottom-0" height="60px" width="120px" alt="<%= animeData.name %> <%= seasonData.displayName %>">
                                     <div class="season-box absolute">
                                         <h3 class="season-num"><%= season.displayName %></h3>
                                     </div>
