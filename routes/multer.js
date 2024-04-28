@@ -30,7 +30,7 @@ const imageStorage = multer.diskStorage({
     cb(null, uniqueFilename + path.extname(file.originalname)); // Use the filename for the uploaded file
   },
 });
-
+const uniqueFilenameCloud = uuidv4();
 const upload = multer({ storage: imageStorage });
 
 // NEW //
@@ -61,7 +61,7 @@ async function handleImageUpload(req, res, next) {
     // Upload image to Cloudinary
     const result = await cloudinary.uploader.upload(req.file.path, {
       folder: folderName, // Specify the folder in Cloudinary
-      public_id: req.file.filename,
+      public_id: uniqueFilenameCloud,
     });
     
     // Set the image URL in the Anime schema based on the fieldname

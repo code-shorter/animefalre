@@ -375,7 +375,7 @@ router.post('/account-update', upload.single('profileImg'), handleImageUpload, a
     }
 
     const username = req.user.username;
-    const userPic = req.file.filename;
+    const userPic = req.imageURL;
 
     const updatedUser = await userModel.findOneAndUpdate(
       { username: username },
@@ -483,7 +483,7 @@ router.post('/update-banner', upload.single('bannerImg'), handleImageUpload, asy
 
   try {
       const newBanner = await bannerModel.create({
-          bannerImage: req.file.filename,
+          bannerImage: req.imageURL,
           animeName: req.body.animeName,
           link: link
       });
@@ -501,7 +501,7 @@ router.post('/upload-donghua', upload.single('posterImg'), handleImageUpload, as
     return res.status(400).send('No file were uploaded.');
   }
   const Anime = await animeModel.create({
-    poster: req.file.filename,
+    poster: req.imageURL,
     name: req.body.name,
     description: req.body.description,
     section: req.body.section,
@@ -566,7 +566,7 @@ router.post('/upload-episode', upload.single('thumbnail'), handleImageUpload, as
     const episode = await episodeModel.create({
       episodeTitle: episodeTitle,
       episodeId: episodeId,
-      thumbnail: req.file.filename,
+      thumbnail: req.imageURL,
       animeId: animeId,
       server1: req.body.server1,
       server2: req.body.server2,
@@ -614,7 +614,7 @@ router.post('/create-season', upload.single('seasonImg'), handleImageUpload, asy
       displayName: name, // Season 1
       seasonNo: seasonNo, // S1
       seasonId: seasonId, // S1
-      seasonImg: req.file.filename, // cdvfcdfv.jpg
+      seasonImg: req.imageURL, // cdvfcdfv.jpg
       anime: animeName, // Battle through the heaven
       animeId: animeId, // btth
       season: season, // 1
@@ -669,7 +669,7 @@ router.post('/update-donghua', upload.single('posterImg'), handleImageUpload, as
     // Check if file is uploaded
     let poster;
     if (req.file) {
-      poster = req.file.filename;
+      poster = req.imageURL;
     }
 
     const animeId = req.body.animeId;
@@ -742,7 +742,7 @@ router.post('/update-episode', upload.single('thumbnail'), handleImageUpload, as
     if (!req.file) {
       return res.status(400).send('No file was uploaded.');
     } else {
-      thumbnail = req.file.filename;
+      thumbnail = req.imageURL;
     }
 
     const animeId = req.body.animeId; // Get the animeId from the request body
