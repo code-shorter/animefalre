@@ -339,40 +339,6 @@ function ddd() {
     }
 };
 }
-// Function to handle form submission
-    async function submitForm(event) {
-        event.preventDefault(); // Prevent default form submission
-
-        // Serialize form data
-        const formData = new FormData(document.getElementById('ep-form'));
-
-        try {
-            // Submit form data to the server using Fetch API
-            const response = await fetch('/upload-episode', {
-                method: 'POST',
-                body: formData
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to upload episode');
-            }
-
-            // Once the server responds successfully, initiate file download
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            a.download = 'downloaded_file.jpg'; // Set the desired file name
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
-        } catch (error) {
-            console.error('Error uploading episode:', error);
-            // Handle error
-        }
-    }
-
     </script>
 </body>
 </html>
